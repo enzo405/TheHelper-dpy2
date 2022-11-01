@@ -1,7 +1,7 @@
 import discord 
 from discord.ext import commands
 from bot_auth import TOKENH
-import database_handler as Mydb
+# import database_handler as Mydb
 from typing import Optional
 import asyncio
 from datetime import datetime
@@ -14,7 +14,7 @@ test_guild = discord.Object(id=889452351130312714)
 ada_guild = discord.Object(id=504559824617603082)
 artichaud_guild = discord.Object(id=900046546656182322)
 channel_command = [736659714670198794, 948565096366481428, 948681408640073818, 889881030188748810]
-db = Mydb.DatabaseHandler()
+# db = Mydb.DatabaseHandler()
 
 
 class get_user:
@@ -47,7 +47,7 @@ tree = TheHelper.tree
 @tree.command(name="apk",description="Comment rentre t'on dans le leaderboard ?", guild=test_guild)
 async def apk(ctx:discord.Interaction,link:str):
 	maj_channel = TheHelper.get_channel(954037899685429318)
-	await maj_channel.send(f"<@&948915502556794902> \n **Voici le lien de l'APK** : {link}\n\nSi vous ne savez pas comment les installer, faites ?tuto_apk dans le wiki")
+	await maj_channel.send(f"**Voici le lien de l'APK** : {link}\n\nSi vous ne savez pas comment les installer, faites ?tuto_apk dans le wiki")
 
 
 
@@ -113,199 +113,199 @@ async def youtube(ctx:discord.Interaction,youtube:str):
 
 
 
-@tree.command(name="stats",description="Ajoute tes stats sur le leaderboard")
-@app_commands.describe(attaque="Votre attaque ingame")
-@app_commands.describe(pv="Vos pv ingame")
-@app_commands.describe(chapitre_nm="chapitre normal TERMINÉ !")
-@app_commands.describe(chapitre_hm="chapitre hard TERMINÉ !")
-async def stats(ctx:discord.Interaction, attaque:int, pv:int, chapitre_nm:int=0, chapitre_hm:int=0):
-	chat = TheHelper.get_channel(952673377787711529)
-	luhcaran = await TheHelper.fetch_user(382930544385851392)
-	author = await TheHelper.fetch_user(ctx.user.id)
-	name = author.display_name.replace("'","")
-	list_id_already_registered = db.column("SELECT id FROM Stats")
-	em1=discord.Embed(
-	title="Stats Confirmation",url = "https://adarmy.herokuapp.com/classement/",description = "",color=0x5733FF)
-	em1.set_thumbnail(url="https://pbs.twimg.com/profile_images/1115253379398348800/nd4kxZE9.png")
-	em1.add_field(name=f"✅ Vos stats viennent d'être envoyé à LuhCaran#9802 et sont maintenant en attente de confirmation !",value=f"Veuillez m'envoyer un screen de vos stats svp (----><@{luhcaran.id}>)\nVous pouvez demander à avoir le statuts Free To Play (faites `?rank_help` pour + d'info)",inline=False)
-	await ctx.response.send_message(embed=em1)
-	confirm = await chat.send(f"<@{ctx.user.id}> à utilisé la commande ``/stats {attaque} {pv} {chapitre_nm} {chapitre_hm}``! ||<@{luhcaran.id}>||")
-	try:
-		reaction, user = await TheHelper.wait_for('reaction_add', timeout = 3600)
-	except asyncio.TimeoutError:
-		await chat.send(f"Tu n'a surement pas eu le temps d'accepter : ``/stats <@{ctx.user.id}> {attaque} {pv} {chapitre_nm} {chapitre_hm}`` !")
-		await confirm.delete()
-		return
-	else:
-		if str(reaction.emoji) == "\U00002705":
-			if ctx.user.id not in list_id_already_registered:
-				db.create_person(ctx.user.id, name, attaque, pv)
-				db.set_chapter(ctx.user.id, chapitre_nm, chapitre_hm)
-				await confirm.reply(f"Vous venez de confirmer les stats de {name}",delete_after=15)
-				await asyncio.sleep(5)
-				await confirm.delete()
-			elif ctx.user.id in list_id_already_registered:
-				db.change_stats(ctx.user.id, name, attaque, pv)
-				db.set_chapter(ctx.user.id, chapitre_nm, chapitre_hm)
-				await confirm.reply(f"Vous venez de confirmer les stats de {name}",delete_after=15)
-				await asyncio.sleep(5)
-				await confirm.delete()
-			target = ctx.user
-			place = db.column("SELECT id FROM Stats ORDER BY attaque DESC")
-			target_F2P = db.column(f"SELECT F2P FROM Stats WHERE id={target.id}")
-			target_atk2 = db.column(f"SELECT attaque FROM Stats WHERE id={target.id}")
-			target_pv2 = db.column(f"SELECT pv FROM Stats WHERE id={target.id}")
-			target_chapitreHm = db.column(f"SELECT ChapterHm FROM Stats WHERE id={target.id}")
-			target_chapitreNm = db.column(f"SELECT ChapterNm FROM Stats WHERE id={target.id}")
-			target_atk = str(target_atk2).replace("]","").replace("[","")
-			target_pv = str(target_pv2).replace("]","").replace("[","")
-			F2P = str(target_F2P).replace("]","").replace("[","").replace("None","❌").replace("'","")
-			chapitreNm = str(target_chapitreNm).replace("]","").replace("[","").replace("None","Pas précisé")
-			chapitreHm = str(target_chapitreHm).replace("]","").replace("[","").replace("None","Pas précisé")
-			em1=discord.Embed(
-			title=f"Voici les Stats de {target.display_name}",url="https://adarmy.herokuapp.com/classement/",color=0x5733FF)
-			em1.add_field(name=f"Tu es n°{place.index(target.id)+1} sur {len(place)}",value=f"> **Attaque** --> {target_atk}\n> **Pv** --> {target_pv}\n> **Chapitre Nm** --> {chapitreNm}\n> **Chapitre Hm** --> {chapitreHm}\n> **Free To Play** --> {F2P}",inline=False)
-			em1.set_thumbnail(url= target.avatar)
-			em1.set_footer(text="https://adarmy.herokuapp.com/classement/")
-			await ctx.user.send(embed=em1)
-		if str(reaction.emoji) == "\U0000274c":
-			await confirm.reply(f"Les stats de {name} n'ont pas été confirmées",delete_after=15)
-			await asyncio.sleep(5)
-			await confirm.delete()
+# @tree.command(name="stats",description="Ajoute tes stats sur le leaderboard")
+# @app_commands.describe(attaque="Votre attaque ingame")
+# @app_commands.describe(pv="Vos pv ingame")
+# @app_commands.describe(chapitre_nm="chapitre normal TERMINÉ !")
+# @app_commands.describe(chapitre_hm="chapitre hard TERMINÉ !")
+# async def stats(ctx:discord.Interaction, attaque:int, pv:int, chapitre_nm:int=0, chapitre_hm:int=0):
+# 	chat = TheHelper.get_channel(952673377787711529)
+# 	luhcaran = await TheHelper.fetch_user(382930544385851392)
+# 	author = await TheHelper.fetch_user(ctx.user.id)
+# 	name = author.display_name.replace("'","")
+# 	list_id_already_registered = db.column("SELECT id FROM Stats")
+# 	em1=discord.Embed(
+# 	title="Stats Confirmation",url = "https://adarmy.herokuapp.com/classement/",description = "",color=0x5733FF)
+# 	em1.set_thumbnail(url="https://pbs.twimg.com/profile_images/1115253379398348800/nd4kxZE9.png")
+# 	em1.add_field(name=f"✅ Vos stats viennent d'être envoyé à LuhCaran#9802 et sont maintenant en attente de confirmation !",value=f"Veuillez m'envoyer un screen de vos stats svp (----><@{luhcaran.id}>)\nVous pouvez demander à avoir le statuts Free To Play (faites `?rank_help` pour + d'info)",inline=False)
+# 	await ctx.response.send_message(embed=em1)
+# 	confirm = await chat.send(f"<@{ctx.user.id}> à utilisé la commande ``/stats {attaque} {pv} {chapitre_nm} {chapitre_hm}``! ||<@{luhcaran.id}>||")
+# 	try:
+# 		reaction, user = await TheHelper.wait_for('reaction_add', timeout = 3600)
+# 	except asyncio.TimeoutError:
+# 		await chat.send(f"Tu n'a surement pas eu le temps d'accepter : ``/stats <@{ctx.user.id}> {attaque} {pv} {chapitre_nm} {chapitre_hm}`` !")
+# 		await confirm.delete()
+# 		return
+# 	else:
+# 		if str(reaction.emoji) == "\U00002705":
+# 			if ctx.user.id not in list_id_already_registered:
+# 				db.create_person(ctx.user.id, name, attaque, pv)
+# 				db.set_chapter(ctx.user.id, chapitre_nm, chapitre_hm)
+# 				await confirm.reply(f"Vous venez de confirmer les stats de {name}",delete_after=15)
+# 				await asyncio.sleep(5)
+# 				await confirm.delete()
+# 			elif ctx.user.id in list_id_already_registered:
+# 				db.change_stats(ctx.user.id, name, attaque, pv)
+# 				db.set_chapter(ctx.user.id, chapitre_nm, chapitre_hm)
+# 				await confirm.reply(f"Vous venez de confirmer les stats de {name}",delete_after=15)
+# 				await asyncio.sleep(5)
+# 				await confirm.delete()
+# 			target = ctx.user
+# 			place = db.column("SELECT id FROM Stats ORDER BY attaque DESC")
+# 			target_F2P = db.column(f"SELECT F2P FROM Stats WHERE id={target.id}")
+# 			target_atk2 = db.column(f"SELECT attaque FROM Stats WHERE id={target.id}")
+# 			target_pv2 = db.column(f"SELECT pv FROM Stats WHERE id={target.id}")
+# 			target_chapitreHm = db.column(f"SELECT ChapterHm FROM Stats WHERE id={target.id}")
+# 			target_chapitreNm = db.column(f"SELECT ChapterNm FROM Stats WHERE id={target.id}")
+# 			target_atk = str(target_atk2).replace("]","").replace("[","")
+# 			target_pv = str(target_pv2).replace("]","").replace("[","")
+# 			F2P = str(target_F2P).replace("]","").replace("[","").replace("None","❌").replace("'","")
+# 			chapitreNm = str(target_chapitreNm).replace("]","").replace("[","").replace("None","Pas précisé")
+# 			chapitreHm = str(target_chapitreHm).replace("]","").replace("[","").replace("None","Pas précisé")
+# 			em1=discord.Embed(
+# 			title=f"Voici les Stats de {target.display_name}",url="https://adarmy.herokuapp.com/classement/",color=0x5733FF)
+# 			em1.add_field(name=f"Tu es n°{place.index(target.id)+1} sur {len(place)}",value=f"> **Attaque** --> {target_atk}\n> **Pv** --> {target_pv}\n> **Chapitre Nm** --> {chapitreNm}\n> **Chapitre Hm** --> {chapitreHm}\n> **Free To Play** --> {F2P}",inline=False)
+# 			em1.set_thumbnail(url= target.avatar)
+# 			em1.set_footer(text="https://adarmy.herokuapp.com/classement/")
+# 			await ctx.user.send(embed=em1)
+# 		if str(reaction.emoji) == "\U0000274c":
+# 			await confirm.reply(f"Les stats de {name} n'ont pas été confirmées",delete_after=15)
+# 			await asyncio.sleep(5)
+# 			await confirm.delete()
 
 
 
-@tree.command(name="dbh_command",description="only available for LuhCaran", guild=test_guild)
-@app_commands.describe(target_id="id de la personne")
-@app_commands.describe(attaque="attaque de la personne")
-@app_commands.describe(pv="pv de la personne")
-@app_commands.describe(chapitre_nm="chapitre normal mode de la personne")
-@app_commands.describe(chapitre_hm="chapitre hard mode de la personne")
-async def dbh_command(ctx:discord.Interaction, target_id:str, attaque:int, pv:int,chapitre_nm:int=0,chapitre_hm:int=0):
-	chat = TheHelper.get_channel(952673377787711529)
-	user = await TheHelper.fetch_user(382930544385851392)
-	target = await TheHelper.fetch_user(target_id)
-	name = target.display_name.replace("'","").replace('"','')
-	list_id_already_registered = db.column("SELECT id FROM Stats")
-	em1=discord.Embed(
-	title="Stats Confirmation",url = "https://adarmy.herokuapp.com/classement/",description = "",color=0x5733FF)
-	em1.set_thumbnail(url="https://pbs.twimg.com/profile_images/1115253379398348800/nd4kxZE9.png")
-	em1.add_field(name=f"Pour @{name}",value=f"Si je résume bien, <@{target_id}> aura : \n> **Attaque** --> {attaque}\n> **Pv** --> {pv}\n> **Chapitre Nm** --> {chapitre_nm}\n> **Chapitre Hm** --> {chapitre_hm}",inline=False)
-	await ctx.response.send_message(embed=em1)
-	confirm = await chat.send(f":white_check_mark: **{name}** à utilisé la commande ``/stats {attaque} {pv}``! ||<@{user.id}>||")
-	try:
-		reaction, user = await TheHelper.wait_for('reaction_add', timeout = 3600)
-	except asyncio.TimeoutError:
-		await chat.send(f"Pour **{name}**, tu n'a surement pas eu le temps d'accepter,\nFait cette commande si tu veux accepter sinon ignore ce message : ``/stats {target_id} {attaque} {pv}`` !")
-		await confirm.delete()
-		return
-	else:
-		if str(reaction.emoji) == "\U00002705":
-			if target_id not in list_id_already_registered:
-				db.create_person(target.id, name, attaque, pv)
-				db.set_chapter(target.id, chapitre_nm, chapitre_hm)
-				await confirm.reply(f"Vous venez de confirmer les stats de {name}",delete_after=15)
-				await asyncio.sleep(5)
-				await confirm.delete()
-			elif target_id in list_id_already_registered:
-				db.change_stats(target.id, name, attaque, pv)
-				db.set_chapter(target.id, chapitre_nm, chapitre_hm)
-				await confirm.reply(f"Vous venez de confirmer les stats de {name}",delete_after=15)
-				await asyncio.sleep(5)
-				await confirm.delete()
-			place = db.column("SELECT id FROM Stats ORDER BY attaque DESC")
-			target_F2P = db.column(f"SELECT F2P FROM Stats WHERE id={target.id}")
-			target_atk2 = db.column(f"SELECT attaque FROM Stats WHERE id={target.id}")
-			target_pv2 = db.column(f"SELECT pv FROM Stats WHERE id={target.id}")
-			target_chapitreHm = db.column(f"SELECT ChapterHm FROM Stats WHERE id={target.id}")
-			target_chapitreNm = db.column(f"SELECT ChapterNm FROM Stats WHERE id={target.id}")
-			target_atk = str(target_atk2).replace("]","").replace("[","")
-			target_pv = str(target_pv2).replace("]","").replace("[","")
-			F2P = str(target_F2P).replace("]","").replace("[","").replace("None","❌").replace("'","")
-			chapitreNm = str(target_chapitreNm).replace("]","").replace("[","").replace("None","Pas précisé")
-			chapitreHm = str(target_chapitreHm).replace("]","").replace("[","").replace("None","Pas précisé")
-			em1=discord.Embed(
-			title=f"Voici les Stats de {target.display_name}",url="https://adarmy.herokuapp.com/classement/",color=0x5733FF)
-			em1.add_field(name=f"Tu es n°{place.index(target.id)+1} sur {len(place)}",value=f"> **Attaque** --> {target_atk}\n> **Pv** --> {target_pv}\n> **Chapitre Nm** --> {chapitreNm}\n> **Chapitre Hm** --> {chapitreHm}\n> **Free To Play** --> {F2P}",inline=False)
-			em1.set_thumbnail(url= target.avatar)
-			em1.set_footer(text="https://adarmy.herokuapp.com/classement/")
-			await ctx.channel.send(embed=em1)
-		if str(reaction.emoji) == "\U0000274c":
-			await confirm.reply(f"Les stats de {name} n'ont pas été confirmées",delete_after=15)
-			await asyncio.sleep(5)
-			await confirm.delete()
+# @tree.command(name="dbh_command",description="only available for LuhCaran", guild=test_guild)
+# @app_commands.describe(target_id="id de la personne")
+# @app_commands.describe(attaque="attaque de la personne")
+# @app_commands.describe(pv="pv de la personne")
+# @app_commands.describe(chapitre_nm="chapitre normal mode de la personne")
+# @app_commands.describe(chapitre_hm="chapitre hard mode de la personne")
+# async def dbh_command(ctx:discord.Interaction, target_id:str, attaque:int, pv:int,chapitre_nm:int=0,chapitre_hm:int=0):
+# 	chat = TheHelper.get_channel(952673377787711529)
+# 	user = await TheHelper.fetch_user(382930544385851392)
+# 	target = await TheHelper.fetch_user(target_id)
+# 	name = target.display_name.replace("'","").replace('"','')
+# 	list_id_already_registered = db.column("SELECT id FROM Stats")
+# 	em1=discord.Embed(
+# 	title="Stats Confirmation",url = "https://adarmy.herokuapp.com/classement/",description = "",color=0x5733FF)
+# 	em1.set_thumbnail(url="https://pbs.twimg.com/profile_images/1115253379398348800/nd4kxZE9.png")
+# 	em1.add_field(name=f"Pour @{name}",value=f"Si je résume bien, <@{target_id}> aura : \n> **Attaque** --> {attaque}\n> **Pv** --> {pv}\n> **Chapitre Nm** --> {chapitre_nm}\n> **Chapitre Hm** --> {chapitre_hm}",inline=False)
+# 	await ctx.response.send_message(embed=em1)
+# 	confirm = await chat.send(f":white_check_mark: **{name}** à utilisé la commande ``/stats {attaque} {pv}``! ||<@{user.id}>||")
+# 	try:
+# 		reaction, user = await TheHelper.wait_for('reaction_add', timeout = 3600)
+# 	except asyncio.TimeoutError:
+# 		await chat.send(f"Pour **{name}**, tu n'a surement pas eu le temps d'accepter,\nFait cette commande si tu veux accepter sinon ignore ce message : ``/stats {target_id} {attaque} {pv}`` !")
+# 		await confirm.delete()
+# 		return
+# 	else:
+# 		if str(reaction.emoji) == "\U00002705":
+# 			if target_id not in list_id_already_registered:
+# 				db.create_person(target.id, name, attaque, pv)
+# 				db.set_chapter(target.id, chapitre_nm, chapitre_hm)
+# 				await confirm.reply(f"Vous venez de confirmer les stats de {name}",delete_after=15)
+# 				await asyncio.sleep(5)
+# 				await confirm.delete()
+# 			elif target_id in list_id_already_registered:
+# 				db.change_stats(target.id, name, attaque, pv)
+# 				db.set_chapter(target.id, chapitre_nm, chapitre_hm)
+# 				await confirm.reply(f"Vous venez de confirmer les stats de {name}",delete_after=15)
+# 				await asyncio.sleep(5)
+# 				await confirm.delete()
+# 			place = db.column("SELECT id FROM Stats ORDER BY attaque DESC")
+# 			target_F2P = db.column(f"SELECT F2P FROM Stats WHERE id={target.id}")
+# 			target_atk2 = db.column(f"SELECT attaque FROM Stats WHERE id={target.id}")
+# 			target_pv2 = db.column(f"SELECT pv FROM Stats WHERE id={target.id}")
+# 			target_chapitreHm = db.column(f"SELECT ChapterHm FROM Stats WHERE id={target.id}")
+# 			target_chapitreNm = db.column(f"SELECT ChapterNm FROM Stats WHERE id={target.id}")
+# 			target_atk = str(target_atk2).replace("]","").replace("[","")
+# 			target_pv = str(target_pv2).replace("]","").replace("[","")
+# 			F2P = str(target_F2P).replace("]","").replace("[","").replace("None","❌").replace("'","")
+# 			chapitreNm = str(target_chapitreNm).replace("]","").replace("[","").replace("None","Pas précisé")
+# 			chapitreHm = str(target_chapitreHm).replace("]","").replace("[","").replace("None","Pas précisé")
+# 			em1=discord.Embed(
+# 			title=f"Voici les Stats de {target.display_name}",url="https://adarmy.herokuapp.com/classement/",color=0x5733FF)
+# 			em1.add_field(name=f"Tu es n°{place.index(target.id)+1} sur {len(place)}",value=f"> **Attaque** --> {target_atk}\n> **Pv** --> {target_pv}\n> **Chapitre Nm** --> {chapitreNm}\n> **Chapitre Hm** --> {chapitreHm}\n> **Free To Play** --> {F2P}",inline=False)
+# 			em1.set_thumbnail(url= target.avatar)
+# 			em1.set_footer(text="https://adarmy.herokuapp.com/classement/")
+# 			await ctx.channel.send(embed=em1)
+# 		if str(reaction.emoji) == "\U0000274c":
+# 			await confirm.reply(f"Les stats de {name} n'ont pas été confirmées",delete_after=15)
+# 			await asyncio.sleep(5)
+# 			await confirm.delete()
 
 
-#--------------------- DATABASE ADMIN /HOST COMMAND ---------------------
+# #--------------------- DATABASE ADMIN /HOST COMMAND ---------------------
 
-@TheHelper.command(name="dbh_rm")
-@commands.is_owner()
-async def dbhost_remove_user(ctx:discord.Interaction, target: discord.User):
-	chat = TheHelper.get_channel(952673377787711529)
-	await ctx.reply(f"Une attente à la confirmation vient d'être envoyé dans <#{chat}> pour supprimer les stats de <@{target.id}>", delete_after=10, mention_author=True)
-	confirm = await chat.send(f":white_check_mark: **{ctx.author}** à utilisé la commande ``{ctx.message.content}`` pour supprimer les stats de {target}")
-	try:
-		reaction, user = await TheHelper.wait_for('reaction_add', timeout = 3600)
-	except asyncio.TimeoutError:
-		await confirm.reply(f"**Temps écoulé !** Fait cette commande : ``?dbh_rm <@!{target.id}>`` !")
-		return
-	else:
-		if str(reaction.emoji) == "\U00002705":
-			db.delete_person(target.id)
-			await confirm.reply(f"Les stats de {target} ont bien été supprimées",delete_after=15)
-			await asyncio.sleep(5)
-			await confirm.delete()
-		if str(reaction.emoji) == "\U0000274c":
-			await confirm.reply(f"Les stats de {target} n'ont pas été supprimé",delete_after=15)
-			await asyncio.sleep(5)
-			await confirm.delete()
+# @TheHelper.command(name="dbh_rm")
+# @commands.is_owner()
+# async def dbhost_remove_user(ctx:discord.Interaction, target: discord.User):
+# 	chat = TheHelper.get_channel(952673377787711529)
+# 	await ctx.reply(f"Une attente à la confirmation vient d'être envoyé dans <#{chat}> pour supprimer les stats de <@{target.id}>", delete_after=10, mention_author=True)
+# 	confirm = await chat.send(f":white_check_mark: **{ctx.author}** à utilisé la commande ``{ctx.message.content}`` pour supprimer les stats de {target}")
+# 	try:
+# 		reaction, user = await TheHelper.wait_for('reaction_add', timeout = 3600)
+# 	except asyncio.TimeoutError:
+# 		await confirm.reply(f"**Temps écoulé !** Fait cette commande : ``?dbh_rm <@!{target.id}>`` !")
+# 		return
+# 	else:
+# 		if str(reaction.emoji) == "\U00002705":
+# 			db.delete_person(target.id)
+# 			await confirm.reply(f"Les stats de {target} ont bien été supprimées",delete_after=15)
+# 			await asyncio.sleep(5)
+# 			await confirm.delete()
+# 		if str(reaction.emoji) == "\U0000274c":
+# 			await confirm.reply(f"Les stats de {target} n'ont pas été supprimé",delete_after=15)
+# 			await asyncio.sleep(5)
+# 			await confirm.delete()
 
-@TheHelper.command(name="dbh_f2p")
-async def dbhost_free_to_play(ctx:discord.Interaction, target: discord.User, response):
-	luhcaran = await TheHelper.fetch_user("382930544385851392")
-	if ctx.author.id == luhcaran.id:
-		db.free_to_play(target.id, response)
-		await ctx.reply(f"{target} a maintenant `{response}` dans F2P",delete_after=15)
-	else:
-		await ctx.reply(f"Tu n'a pas accès a cette commande seul <@{luhcaran.id}> peut", delete_after = 15, mention_author=True)
+# @TheHelper.command(name="dbh_f2p")
+# async def dbhost_free_to_play(ctx:discord.Interaction, target: discord.User, response):
+# 	luhcaran = await TheHelper.fetch_user("382930544385851392")
+# 	if ctx.author.id == luhcaran.id:
+# 		db.free_to_play(target.id, response)
+# 		await ctx.reply(f"{target} a maintenant `{response}` dans F2P",delete_after=15)
+# 	else:
+# 		await ctx.reply(f"Tu n'a pas accès a cette commande seul <@{luhcaran.id}> peut", delete_after = 15, mention_author=True)
 
-@TheHelper.command(name="dbh_help")
-async def dbhost_help_command(ctx):
-	luhcaran = await TheHelper.fetch_user("382930544385851392")
-	em1=discord.Embed(
-	title="Commande pour Database Host",url="https://www.youtube.com/channel/UCJoV9pAMDRvD70JV7iLwA2g",color=0xFF5733)
-	em1.add_field(name="Créer un profil",value="``?dbh_cp <@123456789901> 10000 50000``", inline=False)
-	em1.add_field(name="Changer les stats",value="``?dbh_ep <@123456789901> 10001 50001``", inline=False)
-	em1.add_field(name="Supprimer les stats",value="``?dbh_rm <@123456789901>``", inline=False)
-	em1.add_field(name="Status F2P",value="``?dbh_f2p <@123456789901> ✅/❌``", inline=False)
-	em1.add_field(name="Insérer chapitre",value="``?dbh_ch <@123456789901> 21 24``", inline=False)
-	await luhcaran.send(embed=em1)
+# @TheHelper.command(name="dbh_help")
+# async def dbhost_help_command(ctx):
+# 	luhcaran = await TheHelper.fetch_user("382930544385851392")
+# 	em1=discord.Embed(
+# 	title="Commande pour Database Host",url="https://www.youtube.com/channel/UCJoV9pAMDRvD70JV7iLwA2g",color=0xFF5733)
+# 	em1.add_field(name="Créer un profil",value="``?dbh_cp <@123456789901> 10000 50000``", inline=False)
+# 	em1.add_field(name="Changer les stats",value="``?dbh_ep <@123456789901> 10001 50001``", inline=False)
+# 	em1.add_field(name="Supprimer les stats",value="``?dbh_rm <@123456789901>``", inline=False)
+# 	em1.add_field(name="Status F2P",value="``?dbh_f2p <@123456789901> ✅/❌``", inline=False)
+# 	em1.add_field(name="Insérer chapitre",value="``?dbh_ch <@123456789901> 21 24``", inline=False)
+# 	await luhcaran.send(embed=em1)
 
-#--------------------- USER DATABASE COMMAND ---------------------
+# #--------------------- USER DATABASE COMMAND ---------------------
 
-@TheHelper.command(name="rank")
-async def display_rank(ctx:discord.Interaction, target: Optional[discord.User]):
-	target = target or ctx.author
-	place = db.column("SELECT id FROM Stats ORDER BY attaque DESC")
-	target_F2P = db.column(f"SELECT F2P FROM Stats WHERE id={target.id}")
-	target_atk2 = db.column(f"SELECT attaque FROM Stats WHERE id={target.id}")
-	target_pv2 = db.column(f"SELECT pv FROM Stats WHERE id={target.id}")
-	target_chapitreHm = db.column(f"SELECT ChapterHm FROM Stats WHERE id={target.id}")
-	target_chapitreNm = db.column(f"SELECT ChapterNm FROM Stats WHERE id={target.id}")
-	target_atk = str(target_atk2).replace("]","").replace("[","")
-	target_pv = str(target_pv2).replace("]","").replace("[","")
-	F2P = str(target_F2P).replace("]","").replace("[","").replace("None","❌").replace("'","")
-	chapitreNm = str(target_chapitreNm).replace("]","").replace("[","").replace("None","Pas précisé")
-	chapitreHm = str(target_chapitreHm).replace("]","").replace("[","").replace("None","Pas précisé")
-	try:
-		em1=discord.Embed(
-		title=f"Voici les Stats de {target.display_name}",url="https://adarmy.herokuapp.com/classement/",color=0x5733FF)
-		em1.add_field(name=f"Tu es n°{place.index(target.id)+1} sur {len(place)}",value=f"> **Attaque** --> {target_atk}\n> **Pv** --> {target_pv}\n> **Chapitre Nm** --> {chapitreNm}\n> **Chapitre Hm** --> {chapitreHm}\n> **Free To Play** --> {F2P}",inline=False)
-		em1.set_thumbnail(url= target.avatar)
-		em1.set_footer(text="https://adarmy.herokuapp.com/classement/")
-		await ctx.channel.send(embed=em1)
-	except ValueError:
-		await ctx.channel.send(f"{target.display_name} n'est pas présent dans le classement.", delete_after = 6)
+# @TheHelper.command(name="rank")
+# async def display_rank(ctx:discord.Interaction, target: Optional[discord.User]):
+# 	target = target or ctx.author
+# 	place = db.column("SELECT id FROM Stats ORDER BY attaque DESC")
+# 	target_F2P = db.column(f"SELECT F2P FROM Stats WHERE id={target.id}")
+# 	target_atk2 = db.column(f"SELECT attaque FROM Stats WHERE id={target.id}")
+# 	target_pv2 = db.column(f"SELECT pv FROM Stats WHERE id={target.id}")
+# 	target_chapitreHm = db.column(f"SELECT ChapterHm FROM Stats WHERE id={target.id}")
+# 	target_chapitreNm = db.column(f"SELECT ChapterNm FROM Stats WHERE id={target.id}")
+# 	target_atk = str(target_atk2).replace("]","").replace("[","")
+# 	target_pv = str(target_pv2).replace("]","").replace("[","")
+# 	F2P = str(target_F2P).replace("]","").replace("[","").replace("None","❌").replace("'","")
+# 	chapitreNm = str(target_chapitreNm).replace("]","").replace("[","").replace("None","Pas précisé")
+# 	chapitreHm = str(target_chapitreHm).replace("]","").replace("[","").replace("None","Pas précisé")
+# 	try:
+# 		em1=discord.Embed(
+# 		title=f"Voici les Stats de {target.display_name}",url="https://adarmy.herokuapp.com/classement/",color=0x5733FF)
+# 		em1.add_field(name=f"Tu es n°{place.index(target.id)+1} sur {len(place)}",value=f"> **Attaque** --> {target_atk}\n> **Pv** --> {target_pv}\n> **Chapitre Nm** --> {chapitreNm}\n> **Chapitre Hm** --> {chapitreHm}\n> **Free To Play** --> {F2P}",inline=False)
+# 		em1.set_thumbnail(url= target.avatar)
+# 		em1.set_footer(text="https://adarmy.herokuapp.com/classement/")
+# 		await ctx.channel.send(embed=em1)
+# 	except ValueError:
+# 		await ctx.channel.send(f"{target.display_name} n'est pas présent dans le classement.", delete_after = 6)
 
 
 #--------------------- EMBED COMMAND ---------------------

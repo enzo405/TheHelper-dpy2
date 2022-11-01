@@ -7,7 +7,7 @@ import asyncio
 from datetime import datetime
 from discord import app_commands
 from discord.ui import *
-from classfile import Select, SelectView
+from classfile import SelectView
 
 
 test_guild = discord.Object(id=889452351130312714)

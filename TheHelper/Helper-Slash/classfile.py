@@ -1,32 +1,30 @@
 import discord 
 from discord.ext import commands
 
-
-
 class Select(discord.ui.Select):
 		def __init__(self):
 				options=[
 						discord.SelectOption(value="Option 0",label="Help Command",description="?help"),
-						discord.SelectOption(value="Option 1",label="Calculateur de Stats",description="?boost_heros"),
-						discord.SelectOption(value="Option 2",label="Bugs du jeux",description="?glitch"),
-						discord.SelectOption(value="Option 3",label="Le Glitch...",description="?talent"),
-						discord.SelectOption(value="Option 4",label="Arbre de Talents",description="?qr"),
-						discord.SelectOption(value="Option 5",label="Tableau des QuickRaid",description="?all_tierlist"),
-						discord.SelectOption(value="Option 6",label="Toutes les TierLists",description="?doc_oeufs"),
-						discord.SelectOption(value="Option 7",label="Document des oeufs",description="?runes_effect"),
-						discord.SelectOption(value="Option 8",label="Tuto installer une apk",description="?conseil"),
-						discord.SelectOption(value="Option 9",label="Description des Skills",description="?skin"),
-						discord.SelectOption(value="Option 10",label="Toutes les runes",description="?level_egg"),
-						discord.SelectOption(value="Option 11",label="Conseil pour tout le monde",description="?guide_laby"),
-						discord.SelectOption(value="Option 12",label="Rentabilité/Prix des skin",description="?pvp"),
-						discord.SelectOption(value="Option 13",label="Nombre d'oeufs pour les levels",description="?stats_calc"),
-						discord.SelectOption(value="Option 14",label="Guide pour le laby",description="?sylvan_command"),
-						discord.SelectOption(value="Option 15",label="Fonctionnement du PvP",description="?stuff_pvp"),
-						discord.SelectOption(value="Option 16",label="Commande pour classement discord",description="?abreviation"),
-						discord.SelectOption(value="Option 17",label="Commandes du bot Sylvan",description="?offre_item"),
-						discord.SelectOption(value="Option 18",label="TierList stuff PvP",description="?stuff_pve1"),
-						discord.SelectOption(value="Option 19",label="Toutes les abréviations ",description="?stuff_pve2"),
-						discord.SelectOption(value="Option 20",label="Tous les boosts des Héros",description="?shards_evo"),
+						discord.SelectOption(value="Option 1",label="Tous les boosts des Héros",description="?boost_heros"),
+						discord.SelectOption(value="Option 2",label="Le Glitch...",description="?glitch"),
+						discord.SelectOption(value="Option 3",label="Arbre de Talents",description="?talent"),
+						discord.SelectOption(value="Option 4",label="Tableau des QuickRaid",description="?qr"),
+						discord.SelectOption(value="Option 5",label="Toutes les TierLists",description="?all_tierlist"),
+						discord.SelectOption(value="Option 6",label="Document des oeufs",description="?doc_oeufs"),
+						discord.SelectOption(value="Option 7",label="Toutes les runes",description="?runes_effect"),
+						discord.SelectOption(value="Option 8",label="Conseil pour tout le monde",description="?conseil"),
+						discord.SelectOption(value="Option 9",label="Rentabilité/Prix des skin",description="?skin"),
+						discord.SelectOption(value="Option 10",label="Nombre d'oeufs pour les levels",description="?level_egg"),
+						discord.SelectOption(value="Option 11",label="Guide pour le laby",description="?guide_laby"),
+						discord.SelectOption(value="Option 12",label="Fonctionnement du PvP",description="?pvp"),
+						discord.SelectOption(value="Option 13",label="Calculateur de Stats",description="?stats_calc"),
+						discord.SelectOption(value="Option 14",label="Commandes du bot Sylvan",description="?sylvan_command"),
+						discord.SelectOption(value="Option 15",label="TierList stuff PvP",description="?stuff_pvp"),
+						discord.SelectOption(value="Option 16",label="Toutes les abréviations",description="?abreviation"),
+						discord.SelectOption(value="Option 17",label="Faire pop une offres",description="?offre_item"),
+						discord.SelectOption(value="Option 18",label="Tierlist stuff pve ALE",description="?stuff_pve1"),
+						discord.SelectOption(value="Option 19",label="Tierlist stuff pve mythic",description="?stuff_pve2"),
+						discord.SelectOption(value="Option 20",label="Shards / cookie / gold",description="?shards_evo"),
 						]
 				super().__init__(placeholder="Clique ici pour choisir une autre commande ",max_values=1,min_values=1,options=options)
 		async def callback(self, interaction: discord.Interaction):

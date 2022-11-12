@@ -44,12 +44,17 @@ tree = TheHelper.tree
 #--------------------- SlashCommand ---------------------
 
 
-@tree.command(name="apk",description="Comment rentre t'on dans le leaderboard ?", guild=test_guild)
+@tree.command(name="apk",description="Apk", guild=test_guild)
 async def apk(ctx:discord.Interaction,link:str):
 	maj_channel = TheHelper.get_channel(954037899685429318)
 	await maj_channel.send(f"**Voici le lien de l'APK** : {link}\n\nSi vous ne savez pas comment les installer, faites ?tuto_apk dans le wiki")
 
-
+@tree.command(name="clear",description="Clear Spam message (only for bot owner)")
+@commands.is_owner()
+async def clear(ctx:discord.Interaction,message_id):
+	msg = await ctx.fetch_message(message_id)
+	await ctx.message.delete()
+	await msg.delete()
 
 @tree.command(name="rank_help",description="Comment rentre t'on dans le leaderboard ?")
 async def rank_help(ctx:discord.Interaction):
@@ -63,7 +68,6 @@ async def rank_help(ctx:discord.Interaction):
 	em1.add_field(name="Chapitre",value=f"Preuves à envoyer en MP à <@{user.id}> :\n-Un screen des chapitres sur lesquels vous êtes bloqués (nm et hm)\n-Un screen de vos stats", inline=False)
 	em1.set_footer(text="Cela ne sert à rien de mettre des stats au pif, je vérifierai vos entrés")
 	await ctx.response.send_message(embed=em1)
-
 
 
 @tree.command(name="youtube",description="Besoin d'un petit tuto ? fait-toi plaisir ;)")
@@ -593,10 +597,10 @@ async def offre_item(ctx):
 async def stuff_pve(ctx):
 	em1=discord.Embed(
 	title="Voici une tierlist des items ALE",url = "",description = "",color=0xFF5733)
-	em1.set_image(url = "https://cdn.discordapp.com/attachments/889452351587495948/1009518971847975023/unknown.png")
+	em1.set_image(url = "https://media.discordapp.net/attachments/1018889785571540994/1021890519875469442/General-Tier-List_1.png?width=1082&height=754")
 	em2=discord.Embed(
 	title="Voici une tierlist des items Mythic",url = "",description = "",color=0xFF5733)
-	em2.set_image(url = "https://cdn.discordapp.com/attachments/889452351587495948/1009536113301524490/unknown.png")
+	em2.set_image(url = "https://media.discordapp.net/attachments/1018889785571540994/1021890520420716665/Mythic-Tier-List_1.png?width=1082&height=754")
 	if (ctx.channel.id in channel_command):
 		await ctx.channel.send(embed=em1,view=SelectView())
 		await ctx.channel.send(embed=em2)

@@ -23,7 +23,7 @@ class get_user:
 class abot(commands.Bot):
 	def __init__(self):
 		intents = discord.Intents.all()
-		super().__init__(intents = intents,command_prefix="!", help_command = None, case_insensitive=True)
+		super().__init__(intents = intents,command_prefix="?", help_command = None, case_insensitive=True)
 		self.synced = False #we use this so the bot doesn't sync commands more than once
 		self.added = False
 
@@ -38,7 +38,7 @@ tree = TheHelper.tree
 #--------------------- SlashCommand ---------------------
 
 @tree.command(name="clear",description="delete spam message")
-@app_commands.checks.has_any_role(585203466348003329,504568245139800067,504568053292335122) #helper / admin / chef
+@app_commands.checks.has_any_role(672529613167001630,504568245139800067,504568053292335122) #helper / admin / chef
 @app_commands.describe(message_id="message id you want to delete")
 async def clear(ctx:discord.Interaction,message_id:str):
 	msg = await ctx.channel.fetch_message(message_id)

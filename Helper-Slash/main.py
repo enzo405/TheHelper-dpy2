@@ -15,7 +15,6 @@ artichaud_guild = discord.Object(id=900046546656182322)
 channel_command = [736659714670198794, 948565096366481428, 948681408640073818, 889881030188748810]
 # db = Mydb.DatabaseHandler()
 
-
 class get_user:
 	def __init__(self,bot:discord.Client):
 		self.TheHelper:discord.User = bot.get_user(707200529738235925)
@@ -24,7 +23,7 @@ class get_user:
 class abot(commands.Bot):
 	def __init__(self):
 		intents = discord.Intents.all()
-		super().__init__(intents = intents,command_prefix="?", help_command = None, case_insensitive=True)
+		super().__init__(intents = intents,command_prefix="!", help_command = None, case_insensitive=True)
 		self.synced = False #we use this so the bot doesn't sync commands more than once
 		self.added = False
 
@@ -38,16 +37,14 @@ tree = TheHelper.tree
 
 #--------------------- SlashCommand ---------------------
 
-@tree.command(name="clear",description="Clear spam message (only for bot owner)")
-@commands.is_owner()
+@tree.command(name="clear",description="delete spam message")
+@app_commands.checks.has_any_role(585203466348003329,504568245139800067,504568053292335122) #helper / admin / chef
 @app_commands.describe(message_id="message id you want to delete")
-async def clear(ctx:discord.Interaction,message_id:str): ##message.id
-	msg = await ctx.message.fetch(message_id)
+async def clear(ctx:discord.Interaction,message_id:str):
+	msg = await ctx.channel.fetch_message(message_id)
+	author_message = msg.author.id
 	await msg.delete()
-	# get_author = await ctx.message.get_channel(ctx.channel_id).fetch_message(message_id)
-	# author_message = get_author.author
-	# await ctx.send(f"You have deleted {author_message}'s message", ephemeral=True)
-	
+	await ctx.response.send_message(f"You have deleted <@{author_message}>'s message\n```{msg.content} ```", ephemeral=True)
 
 @tree.command(name="rank_help",description="Comment rentre t'on dans le leaderboard ?")
 async def rank_help(ctx:discord.Interaction):
@@ -311,6 +308,7 @@ async def youtube(ctx:discord.Interaction,youtube:str):
 @TheHelper.command()
 async def sync(ctx) -> None:
 	synced = await TheHelper.tree.sync()
+	print("synced")
 	await ctx.channel.send(
 		f"Synced {len(synced)} commands to the current guild."
 	)

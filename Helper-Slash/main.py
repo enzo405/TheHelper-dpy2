@@ -501,8 +501,8 @@ async def laby_guide(ctx):
 	title="Voici comment marche l'event Labyrinthe",description = "",color=0xFF5733)
 	em1.set_thumbnail(url="https://pbs.twimg.com/profile_images/1115253379398348800/nd4kxZE9.png")
 	em1.add_field(name="Voici la signification de chaque couleur des portails dans le laby ",value="https://discord.com/channels/504559824617603082/607110270250385418/888317966574313502",inline=False)
-	em1.add_field(name="Et là c'est le pattern à suivre pour rendre le laby plus facile car il suffit juste de prendre un maximum de portail orange et violet",value="https://cdn.discordapp.com/attachments/604720918182232074/888154387866853437/IMG_20210916_220814.jpg",inline=False)
-	em1.set_footer(text="il est possible que le screen des pattern à suivre soit plus d'actualité ou que quelque salle ne marche pas")
+	em1.add_field(name="Et là c'est le pattern à suivre pour rendre le laby plus facile car il suffit juste de prendre un maximum de portail orange et violet",value="https://media.discordapp.net/attachments/745978877691822133/1037382160790851604/MazePaths.png?width=570&height=670",inline=False)
+	em1.set_footer(text="Comment le lire: \nPar exemple sur la ligne 0️⃣4️⃣🔵 semaine 1 : vous devriez prendre le portail bleu à la 4ème salle.\n⚪ = Any Portal\n🟠 = Orange Portal\n🟢 = Green Portal\n🔵 = Blue Portal\n🟣 = Purple Portal")
 	if (ctx.channel.id in channel_command): 
 		await ctx.channel.send(embed=em1,view=SelectView())
 	else:

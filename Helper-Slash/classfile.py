@@ -15,7 +15,7 @@ class Select(discord.ui.Select):
 						discord.SelectOption(value="Option 8",label="Tuto installer une apk",description="?conseil"),
 						discord.SelectOption(value="Option 9",label="Description des Skills",description="?skin"),
 						discord.SelectOption(value="Option 10",label="Toutes les runes",description="?level_egg"),
-						discord.SelectOption(value="Option 11",label="Conseil pour tout le monde",description="?guide_laby"),
+						discord.SelectOption(value="Option 11",label="Guide Labyrinthe",description="?guide_laby"),
 						discord.SelectOption(value="Option 12",label="Rentabilité/Prix des skin",description="?pvp"),
 						discord.SelectOption(value="Option 13",label="Nombre d'oeufs pour les levels",description="?stats_calc"),
 						discord.SelectOption(value="Option 14",label="Guide pour le laby",description="?sylvan_command"),
@@ -25,6 +25,7 @@ class Select(discord.ui.Select):
 						discord.SelectOption(value="Option 18",label="TierList stuff PvP",description="?stuff_pve1"),
 						discord.SelectOption(value="Option 19",label="Toutes les abréviations ",description="?stuff_pve2"),
 						discord.SelectOption(value="Option 20",label="Tous les boosts des Héros",description="?shards_evo"),
+						discord.SelectOption(value="Option 21",label="Conseil pour tout le monde",description="?conseil"),
 						]
 				super().__init__(placeholder="Clique ici pour choisir une autre commande ",max_values=1,min_values=1,options=options)
 		async def callback(self, interaction: discord.Interaction):
@@ -93,10 +94,9 @@ class Select(discord.ui.Select):
 			#11##########LABY-GUIDES###################
 			guide_laby=discord.Embed(
 			title="Voici comment marche l'event Labyrinthe",description = "",color=0xFF5733)
-			guide_laby.set_thumbnail(url="https://pbs.twimg.com/profile_images/1115253379398348800/nd4kxZE9.png")
 			guide_laby.add_field(name="Voici la signification de chaque couleur des portails dans le laby ",value="https://discord.com/channels/504559824617603082/607110270250385418/888317966574313502",inline=False)
-			guide_laby.add_field(name="Et là c'est le pattern à suivre pour rendre le laby plus facile car il suffit juste de prendre un maximum de portail orange et violet",value="https://cdn.discordapp.com/attachments/604720918182232074/888154387866853437/IMG_20210916_220814.jpg",inline=False)
-			guide_laby.set_footer(text="il est possible que le screen des pattern à suivre soit plus d'actualité ou que quelque salle ne marche pas")
+			guide_laby.add_field(name="Et là c'est le pattern à suivre pour rendre le laby plus facile car il suffit juste de prendre un maximum de portail orange et violet",value="https://media.discordapp.net/attachments/745978877691822133/1037382160790851604/MazePaths.png?width=570&height=670",inline=False)
+			guide_laby.set_footer(text="Comment le lire: \nPar exemple sur la ligne 0️⃣4️⃣🔵 semaine 1 : vous devriez prendre le portail bleu à la 4ème salle.\n⚪ = Any Portal\n🟠 = Orange Portal\n🟢 = Green Portal\n🔵 = Blue Portal\n🟣 = Purple Portal")
 			#12#########PVP#############################
 			pvp=discord.Embed(
 			title="Si vous cherchez à savoir comment marche le PvP, ce document est fait pour vous !",url = "https://docs.google.com/spreadsheets/d/1gZsuhfJR6LzpLxlC8Kj40aeRKn9LeEPjC63whaj_Cts/edit#gid=0",description = "",color=0xFF5733)
@@ -144,6 +144,13 @@ class Select(discord.ui.Select):
 			shards_evo=discord.Embed(
 			title="",url = "",description = "",color=0xFF5733)
 			shards_evo.set_image(url = "https://cdn.discordapp.com/attachments/607110270250385418/939878194507563048/InShot_20220206_143932779.jpg")
+			#20##########CONSEIL#####################
+			conseil=discord.Embed(
+			title="FAQ archero", url="https://docs.google.com/document/d/18ASAbf1qCAAGmrF1LtXOxHaY66n1Rko6Dd4DGrGeoxQ/edit",description = "",color=0xFF5733)
+			conseil.set_thumbnail(url="https://pbs.twimg.com/profile_images/1115253379398348800/nd4kxZE9.png")
+			conseil.add_field(name="Réalisé par Vawaxe ce gdoc est destiné aux débutant qui on besoin de conseil",value="https://docs.google.com/document/d/18ASAbf1qCAAGmrF1LtXOxHaY66n1Rko6Dd4DGrGeoxQ/edit",inline=True)
+			conseil.set_footer(text="Vous y trouverez une tierlist du meilleur équipement et plein de conseil même utile aux personne plus avancées dans le jeux !")
+			
 			
 
 
@@ -187,6 +194,8 @@ class Select(discord.ui.Select):
 				await interaction.response.edit_message(embed=stuff_pve2)
 			elif self.values[0] == "Option 20":
 				await interaction.response.edit_message(embed=shards_evo)
+			elif self.values[0] == "Option 21":
+				await interaction.response.edit_message(embed=conseil)
 			else:
 				await interaction.response.edit_message(embed=help)
 

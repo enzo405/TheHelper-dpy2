@@ -1,0 +1,6 @@
+version: '3.4'
+
+services:
+  web:
+    image: helper-slash:latest
+    container_name: helper-slash

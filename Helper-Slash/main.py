@@ -1,4 +1,5 @@
 import discord 
+from discord import file
 from discord.ext import commands
 from bot_auth import TOKENH
 # import database_handler as Mydb
@@ -657,5 +658,11 @@ async def relique(ctx):
 		await ctx.channel.send("Vous devez envoyer cette commande dans <#736659714670198794>",delete_after = 15)
 		await ctx.message.delete()
 
+@TheHelper.command()
+async def list_sylvan_command(ctx):
+	try:
+		await ctx.author.send('Voici la liste des commandes de Sylvan: ',file=discord.File('command-sylvan.txt'))
+	except Exception as e:
+		await ctx.channel.send(e)
 
 TheHelper.run(TOKENH)

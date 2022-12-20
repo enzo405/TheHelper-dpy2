@@ -321,7 +321,7 @@ async def help(ctx):
 		em0=discord.Embed(
 		title="Voici toutes les commandes proposées :",description = "",color=0xFF5733)
 		em0.set_thumbnail(url="https://pbs.twimg.com/profile_images/1115253379398348800/nd4kxZE9.png")
-		em0.add_field(name="Commandes",value="?heros_laby \n?discord_archero \n?sylvan_command \n?abreviation \n?pvp \n?qr \n?stuff_pve \n?stuff_pvp \n?laby_guide \n?conseil \n?oeufs_level \n?talent \n?doc_oeufs \n?stats_calc", inline= True)
+		em0.add_field(name="Commandes",value="?heros_laby \n?discord_archero \n?sylvan_command \n?abreviation \n?pvp \n?qr \n?stuff_pve \n?stuff_pvp \n?laby_guide \n?conseil \n?oeufs_level \n?talent \n?doc_oeufs \n?stats_calc \n?relique", inline= True)
 		em0.add_field(name="Commandes",value="?stats_joyaux \n?stuff_fusion \n?joyaux_fusion \n?rune_effect \n?offre_item \n?index_archive \n?skin \n?all_tierlist \n?shards_evo \n?tuto_apk \n?archero_compilation \n?glitch \n?boost_heros \n?rank_help",inline=True)
 		await ctx.channel.send(embed=em0,view=SelectView())
 	else:
@@ -333,8 +333,7 @@ async def stats_calc(ctx):
 	em1=discord.Embed(
 	title="Calculateur de Stats Version Updated",description = "",color=0xFF5733)
 	em1.set_thumbnail(url="https://pbs.twimg.com/profile_images/1115253379398348800/nd4kxZE9.png")
-	em1.add_field(name='Stats Calculator',value="https://docs.google.com/spreadsheets/d/1NIfusyFcHqo-UzhGGpro03AxfXLXZFd1AIsOYGcP9zU/edit?usp=sharing ", inline= True)
-	em1.add_field(name=" Petite indication :",value="2 choses importantes : \n-Si vous rencontrer un bug/trop gros écart de valeurs veuillez me Mp \n-Il faut aussi savoir qu'a chaque Mise à jour du jeux il faudra re-remplir les valeurs sauf si vous souhaiter garder la version non-update", inline= True)
+	em1.add_field(name='Stats Calculator',value="https://stats.wiki-archero.com/calculator/", inline= True)
 	if (ctx.channel.id in channel_command): 
 		await ctx.channel.send(embed=em1,view=SelectView())
 	else:
@@ -374,7 +373,7 @@ async def QR(ctx):
 	title="Voici le gsheet qui donne accès au tableau de QuickRaid",url="https://docs.google.com/spreadsheets/d/1gI3lxMxjVT3iLb-71kyNrAGE8a4rhAp_tSo7IDwNm3w/edit#gid=808920507",description = "",color=0xFF5733)
 	em1.set_thumbnail(url="https://pbs.twimg.com/profile_images/1115253379398348800/nd4kxZE9.png")
 	em1.add_field(name="QR (Raid éclair)",value="https://docs.google.com/spreadsheets/d/1gI3lxMxjVT3iLb-71kyNrAGE8a4rhAp_tSo7IDwNm3w/edit#gid=808920507",inline=True)
-	em1.set_footer(text="Il est en francais et anglais car je l'ai partagé avec le discord Officiel")
+	em1.set_image(url="https://media.discordapp.net/attachments/997942861154767000/1045893569057148989/QR46.png?width=320&height=676")
 	if (ctx.channel.id in channel_command): 
 		await ctx.channel.send(embed=em1,view=SelectView())
 	else:
@@ -487,7 +486,7 @@ async def skin(ctx):
 @TheHelper.command()
 async def oeufs_level(ctx):
 	em1=discord.Embed(
-	title="Voici le nombre d'oeufs à avoir pour monter l'étoile d'un mob boss :", url="https://docs.google.com/spreadsheets/d/1EcvyN2NGT3k8hDrIk14CsUmyILzMDOJidKKEDDB2dSU/edit#gid=0",description = "Il en faut 42 en tout pour monter un oeufs lvl10 et 86 pour le monter lvl15!",color=0xFF5733)
+	title="Voici le nombre d'oeufs à avoir pour monter l'étoile d'un mob boss :",description = "Il en faut 42 en tout pour monter un oeufs lvl10 et 86 pour le monter lvl15!",color=0xFF5733)
 	em1.set_thumbnail(url="https://pbs.twimg.com/profile_images/1115253379398348800/nd4kxZE9.png")
 	em1.add_field(name="L'oeuf pour débloquer le mob/boss n'est pas pris en compte",value="1 :star: = 1 oeuf \n 2 :star: = 1  oeuf \n 3 :star: = 2 oeufs \n 4 :star: = 2 oeufs \n 5 :star: = 3 oeufs \n 6 :star: = 4 oeufs \n 7 :star: = 5 oeufs \n 8 :star: = 6 oeufs \n 9 :star: = 8 oeufs \n 10 :star: = 10 oeufs\n 11 :star: = 15 oeufs\n 12 :star: = 4 oeufs\n 13 :star: = 6 oeufs\n 14 :star: = 8 oeufs\n 15 :star: = 12 oeufs",inline=True)
 	if (ctx.channel.id in channel_command): 
@@ -501,9 +500,8 @@ async def laby_guide(ctx):
 	em1=discord.Embed(
 	title="Voici comment marche l'event Labyrinthe",description = "",color=0xFF5733)
 	em1.set_thumbnail(url="https://pbs.twimg.com/profile_images/1115253379398348800/nd4kxZE9.png")
-	em1.add_field(name="Voici la signification de chaque couleur des portails dans le laby ",value="https://discord.com/channels/504559824617603082/607110270250385418/888317966574313502",inline=False)
-	em1.add_field(name="Et là c'est le pattern à suivre pour rendre le laby plus facile car il suffit juste de prendre un maximum de portail orange et violet",value="https://media.discordapp.net/attachments/745978877691822133/1037382160790851604/MazePaths.png?width=570&height=670",inline=False)
-	em1.set_footer(text="Comment le lire: \nPar exemple sur la ligne 0️⃣4️⃣🔵 semaine 1 : vous devriez prendre le portail bleu à la 4ème salle.\n⚪ = Any Portal\n🟠 = Orange Portal\n🟢 = Green Portal\n🔵 = Blue Portal\n🟣 = Purple Portal")
+	em1.add_field(name="Labyrinthe Antique",value="https://stats.wiki-archero.com/wiki/maze/",inline=False)
+	em1.set_image(url="https://media.discordapp.net/attachments/745978877691822133/1037382160790851604/MazePaths.png?width=576&height=676")
 	if (ctx.channel.id in channel_command): 
 		await ctx.channel.send(embed=em1,view=SelectView())
 	else:
@@ -647,6 +645,14 @@ async def stats_joyaux(ctx):
 async def discord_archero(ctx):
 	if (ctx.channel.id in channel_command): 
 			await ctx.channel.send("Voici le lien qui permet de rejoindre le discord officiel pas très officiel, car l'admin du discord n'est rien d'autre qu'un ancien dévelopeur de HABBY : https://discord.gg/d7w6FxhHjj")
+	else:
+		await ctx.channel.send("Vous devez envoyer cette commande dans <#736659714670198794>",delete_after = 15)
+		await ctx.message.delete()
+
+@TheHelper.command()
+async def relique(ctx):
+	if (ctx.channel.id in channel_command): 
+			await ctx.channel.send("https://docs.google.com/spreadsheets/d/1SWsyuI6PwYVHHeIpbHyGe3w6nS4C4d_QzlOPAyKh_2Y/edit#gid=1936840283 ")
 	else:
 		await ctx.channel.send("Vous devez envoyer cette commande dans <#736659714670198794>",delete_after = 15)
 		await ctx.message.delete()

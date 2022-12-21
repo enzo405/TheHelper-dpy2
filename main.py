@@ -665,4 +665,4 @@ async def list_sylvan_command(ctx):
 	except Exception as e:
 		await ctx.channel.send(e)
 
-TheHelper.run(TOKENH)
+TheHelper.run('ODg5NDUwMTk0OTM1MDk5NDEy.GCurOF.4iwplJnavIrspCPYWN6o1Ek56ZpS2wjCeFh-Ko')

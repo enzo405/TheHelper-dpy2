@@ -1,7 +1,6 @@
 import discord 
 from discord import file
 from discord.ext import commands
-from bot_auth import TOKENH
 # import database_handler as Mydb
 from discord import app_commands
 from discord.ui import *
@@ -665,4 +664,4 @@ async def list_sylvan_command(ctx):
 	except Exception as e:
 		await ctx.channel.send(e)
 
-TheHelper.run(TOKENH)
+TheHelper.run("")

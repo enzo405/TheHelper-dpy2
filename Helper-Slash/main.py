@@ -322,7 +322,7 @@ async def help(ctx):
 		title="Voici toutes les commandes proposées :",description = "",color=0xFF5733)
 		em0.set_thumbnail(url="https://pbs.twimg.com/profile_images/1115253379398348800/nd4kxZE9.png")
 		em0.add_field(name="Commandes",value="?heros_laby \n?discord_archero \n?sylvan_command \n?abreviation \n?pvp \n?qr \n?stuff_pve \n?stuff_pvp \n?laby_guide \n?conseil \n?oeufs_level \n?talent \n?doc_oeufs \n?stats_calc \n?relique", inline= True)
-		em0.add_field(name="Commandes",value="?stats_joyaux \n?stuff_fusion \n?joyaux_fusion \n?rune_effect \n?offre_item \n?index_archive \n?skin \n?all_tierlist \n?shards_evo \n?tuto_apk \n?archero_compilation \n?glitch \n?boost_heros \n?rank_help",inline=True)
+		em0.add_field(name="Commandes",value="?stats_joyaux \n?stuff_fusion \n?joyaux_fusion \n?rune_effect \n?offre_item \n?index_archive \n?skin \n?all_tierlist \n?shards_evo \n?tuto_apk \n?archero_compilation \n?glitch \n?boost_heros \n?rank_help \n?list_sylvan_command",inline=True)
 		await ctx.channel.send(embed=em0,view=SelectView())
 	else:
 		await ctx.channel.send("Vous devez envoyer cette commande dans <#736659714670198794>",delete_after = 15)
